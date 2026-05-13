@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	:root {
+		--zhust-primary: #000033;
+		--zhust-accent: #ffbf00;
+		--zhust-surface: #0a0a3d;
+		--zhust-border: #1b1b4d;
+		--zhust-text: #e2e8f0;
+	}
+
+	* {
+		box-sizing: border-box;
+	}
+
+	body {
+		margin: 0;
+		font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+		color: var(--zhust-text);
+		background:
+			radial-gradient(900px 500px at 10% 10%, rgba(255, 191, 0, 0.08), transparent 60%),
+			radial-gradient(700px 420px at 95% 20%, rgba(59, 130, 246, 0.12), transparent 55%),
+			linear-gradient(180deg, #000022 0%, #000033 45%, #02021f 100%);
+		min-height: 100vh;
+	}
+
+	#root {
+		min-height: 100vh;
+	}
+}
+
+@layer components {
+	.dashboard-glow {
+		box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+	}
+
+	.accent-ring {
+		box-shadow: 0 0 0 1px rgba(255, 191, 0, 0.35), 0 10px 30px rgba(255, 191, 0, 0.12);
+	}
+
+	.frosted-card {
+		position: relative;
+		background: rgba(10, 10, 61, 0.72);
+		border-radius: 12px;
+		box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.06), inset 0 -10px 20px rgba(0, 0, 0, 0.35);
+		transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+		backdrop-filter: blur(12px);
+	}
+
+	.frosted-card::before,
+	.frosted-card::after {
+		content: '';
+		position: absolute;
+		pointer-events: none;
+	}
+
+	.frosted-card::before {
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 1px;
+		background: linear-gradient(90deg, rgba(255, 191, 0, 0.35), rgba(59, 130, 246, 0.25), transparent 75%);
+	}
+
+	.frosted-card::after {
+		top: 0;
+		left: 0;
+		bottom: 0;
+		width: 1px;
+		background: linear-gradient(180deg, rgba(255, 191, 0, 0.35), rgba(59, 130, 246, 0.2), transparent 80%);
+	}
+
+	.frosted-card:hover {
+		transform: translateY(-2px);
+		box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08), 0 14px 30px rgba(0, 0, 0, 0.25);
+	}
+
+	.frosted-card:hover::before,
+	.frosted-card:hover::after {
+		background: linear-gradient(90deg, rgba(255, 191, 0, 0.75), rgba(255, 191, 0, 0.35), transparent 70%);
+	}
+
+	.frosted-card:hover::after {
+		background: linear-gradient(180deg, rgba(255, 191, 0, 0.75), rgba(255, 191, 0, 0.35), transparent 70%);
+	}
+
+	.sidebar-active::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: inherit;
+		border: 2px solid #ffbf00;
+		box-shadow: 0 0 8px #ffbf00;
+		pointer-events: none;
+	}
+
+	.sidebar-icon {
+		color: #94a3b8;
+	}
+
+	.sidebar-icon-active {
+		color: #ffbf00;
+		filter: drop-shadow(0 0 6px rgba(255, 191, 0, 0.35));
+	}
+}

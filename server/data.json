@@ -1,0 +1,74 @@
+{
+  "last_updated": "2026-05-13T17:42:45.786Z",
+  "weekly_goals": {
+    "daily_tasks": [],
+    "other_tasks": [
+      "Linkedin Strategy"
+    ]
+  },
+  "sprint_board": {
+    "tech": [],
+    "academic": [],
+    "administrative": []
+  },
+  "learning_progress": {
+    "startup_strategies": {
+      "completed": 0,
+      "total": 10,
+      "notes": []
+    },
+    "freelancing_program": {
+      "completed": 0,
+      "total": 12,
+      "notes": []
+    }
+  },
+  "captured_notes": [
+    {
+      "id": 1778694165785,
+      "timestamp": "2026-05-13T17:42:45.785Z",
+      "title": "New tab",
+      "content": "",
+      "source": "manual",
+      "url": "chrome://newtab/",
+      "tags": []
+    }
+  ],
+  "prompt_collection": [
+    {
+      "id": 1778693457744,
+      "topic": "Assignment Prompt",
+      "prompt": "You are an expert microbiologist and make an assignment word file on the following questions",
+      "created_at": "2026-05-13T17:30:57.744Z"
+    }
+  ],
+  "system_toolkit": {
+    "tools": [
+      {
+        "name": "AI Studio",
+        "url": "https://aistudio.google.com/",
+        "description": "AI development environment"
+      },
+      {
+        "name": "Claude AI",
+        "url": "https://claude.ai",
+        "description": "AI-powered code editor"
+      },
+      {
+        "name": "GitHub",
+        "url": "https://github.com",
+        "description": "Version control and collaboration"
+      },
+      {
+        "name": "Gemini",
+        "url": "https://gemini.google.com",
+        "description": "AI assistant"
+      },
+      {
+        "name": "LinkedIn",
+        "url": "https://www.linkedin.com",
+        "description": "Professional network"
+      }
+    ]
+  }
+}
