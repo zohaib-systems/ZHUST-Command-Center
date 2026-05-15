@@ -202,6 +202,57 @@ app.delete('/api/prompts/:id', (req, res) => {
   }
 });
 
+// GET: Retrieve personal OS module state
+app.get('/api/personal-os', (req, res) => {
+  const data = readData();
+  if (data) {
+    res.json({
+      success: true,
+      data: data.personal_os || {
+        plan: {
+          long: { text: '', date: '', purpose: '' },
+          mid: { text: '', date: '', purpose: '' },
+          short: { text: '', date: '', purpose: '' }
+        },
+        finances: { income: 0, expenses: 0, assets: 0, debts: 0 },
+        habits: [],
+        skills: [],
+        deadlines: []
+      }
+    });
+  } else {
+    res.status(500).json({ error: 'Failed to read data' });
+  }
+});
+
+// POST: Save personal OS module state
+app.post('/api/personal-os', (req, res) => {
+  const data = readData();
+  if (data) {
+    const fallback = {
+      plan: {
+        long: { text: '', date: '', purpose: '' },
+        mid: { text: '', date: '', purpose: '' },
+        short: { text: '', date: '', purpose: '' }
+      },
+      finances: { income: 0, expenses: 0, assets: 0, debts: 0 },
+      habits: [],
+      skills: [],
+      deadlines: []
+    };
+
+    data.personal_os = req.body.personal_os || fallback;
+
+    if (writeData(data)) {
+      res.json({ success: true, data: data.personal_os });
+    } else {
+      res.status(500).json({ error: 'Failed to update personal OS' });
+    }
+  } else {
+    res.status(500).json({ error: 'Failed to read data' });
+  }
+});
+
 // POST: Generate data snapshot
 app.post('/api/snapshot', (req, res) => {
   const data = readData();

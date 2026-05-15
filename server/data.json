@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-05-13T17:42:45.786Z",
+  "last_updated": "2026-05-15T13:43:25.387Z",
   "weekly_goals": {
     "daily_tasks": [],
     "other_tasks": [
@@ -42,6 +42,41 @@
       "created_at": "2026-05-13T17:30:57.744Z"
     }
   ],
+  "personal_os": {
+    "plan": {
+      "long": {
+        "text": "",
+        "date": "",
+        "purpose": ""
+      },
+      "mid": {
+        "text": "",
+        "date": "",
+        "purpose": ""
+      },
+      "short": {
+        "text": "",
+        "date": "",
+        "purpose": ""
+      }
+    },
+    "finances": {
+      "income": 0,
+      "expenses": 0,
+      "assets": 0,
+      "debts": 0,
+      "entries": []
+    },
+    "habits": [],
+    "skills": [],
+    "deadlines": [
+      {
+        "id": 1778852605198,
+        "name": "Assignment",
+        "date": "2026-05-16"
+      }
+    ]
+  },
   "system_toolkit": {
     "tools": [
       {

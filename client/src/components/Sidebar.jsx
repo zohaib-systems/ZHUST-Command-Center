@@ -6,6 +6,7 @@ import {
   Library,
   Wrench,
   MessageSquarePlus,
+  Sparkles,
 } from 'lucide-react';
 import zhustLogo from '../assets/zhust-logo.png';
 
@@ -17,6 +18,7 @@ export default function Sidebar({ isOpen }) {
     { icon: Library, label: 'Knowledge Vault', path: '/knowledge-vault' },
     { icon: Wrench, label: 'System Toolkit', path: '/system-toolkit' },
     { icon: MessageSquarePlus, label: 'Prompt Collection', path: '/prompt-collection' },
+    { icon: Sparkles, label: 'Life OS', path: '/life-os' },
   ];
 
   return (

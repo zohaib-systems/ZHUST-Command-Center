@@ -1,5 +1,6 @@
 import { useApp } from '../hooks/useApp';
 import { usePDFExport } from '../hooks/usePDFExport';
+import { Link } from 'react-router-dom';
 
 export default function Dashboard() {
   const { data, loading } = useApp();
@@ -24,6 +25,52 @@ export default function Dashboard() {
     (data?.sprint_board?.academic?.length || 0) +
     (data?.sprint_board?.administrative?.length || 0);
   const notesCount = data?.captured_notes?.length || 0;
+  const personalOS = data?.personal_os || {};
+  const plan = personalOS.plan || {};
+  const finances = personalOS.finances || {};
+  const financeEntries = Array.isArray(finances.entries) ? finances.entries : [];
+  const netWorth = financeEntries.reduce((totals, entry) => {
+    const amount = Number(entry.amount || 0);
+    if (entry.type === 'income' || entry.type === 'passive') {
+      totals.income += amount;
+    } else if (entry.type === 'expense') {
+      totals.expenses += amount;
+    } else if (entry.type === 'asset') {
+      totals.assets += amount;
+    } else if (entry.type === 'debt') {
+      totals.debts += amount;
+    }
+    return totals;
+  }, { income: 0, expenses: 0, assets: 0, debts: 0 });
+  const computedNetWorth = netWorth.assets + netWorth.income - netWorth.expenses - netWorth.debts;
+
+  const nextDeadline = [...(personalOS.deadlines || [])]
+    .filter((deadline) => new Date(deadline.date) > new Date())
+    .sort((a, b) => new Date(a.date) - new Date(b.date))[0];
+
+  const wealthLevel = (() => {
+    const passiveIncome = financeEntries
+      .filter((entry) => entry.type === 'passive')
+      .reduce((sum, entry) => sum + Number(entry.amount || 0), 0);
+
+    if (netWorth.income <= 0 || netWorth.income < netWorth.expenses) {
+      return { level: 0, label: 'Financial Struggle' };
+    }
+
+    if (netWorth.income === netWorth.expenses) {
+      return { level: 1, label: 'Financial Stability' };
+    }
+
+    if (computedNetWorth >= 50000000) {
+      return { level: 4, label: 'Business Tycoon' };
+    }
+
+    if (netWorth.income >= netWorth.expenses * 2 && passiveIncome >= netWorth.expenses && computedNetWorth >= 1000000) {
+      return { level: 3, label: 'Financial Freedom' };
+    }
+
+    return { level: 2, label: 'Financial Growth' };
+  })();
 
   return (
     <div className="space-y-6">
@@ -59,6 +106,52 @@ export default function Dashboard() {
           <div className="text-gray-400 text-sm mb-2">System Health</div>
           <div className="text-3xl font-bold text-green-400">✓ Online</div>
         </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div className="frosted-card rounded-2xl p-6">
+          <div className="text-xs uppercase tracking-[0.3em] text-gray-500">One Page Plan</div>
+          <div className="mt-3 space-y-3 text-sm text-gray-300">
+            <div>
+              <div className="text-zhust-accent font-semibold">Long-term</div>
+              <div>{plan.long?.text || 'No long-term goal set'}</div>
+            </div>
+            <div>
+              <div className="text-zhust-accent font-semibold">Mid-term</div>
+              <div>{plan.mid?.text || 'No mid-term goal set'}</div>
+            </div>
+            <div>
+              <div className="text-zhust-accent font-semibold">Short-term</div>
+              <div>{plan.short?.text || 'No short-term goal set'}</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="frosted-card rounded-2xl p-6">
+          <div className="text-xs uppercase tracking-[0.3em] text-gray-500">Wealth Level</div>
+          <div className="mt-3 text-4xl font-bold text-zhust-accent">L{wealthLevel.level}</div>
+          <div className="mt-2 text-lg text-white">{wealthLevel.label}</div>
+          <div className="mt-4 text-sm text-gray-300">PKR {computedNetWorth.toLocaleString()} net worth</div>
+        </div>
+
+        <div className="frosted-card rounded-2xl p-6">
+          <div className="text-xs uppercase tracking-[0.3em] text-gray-500">Next Deadline</div>
+          <div className="mt-3 text-2xl font-bold text-white">{nextDeadline?.name || 'No deadline set'}</div>
+          <div className="mt-2 text-sm text-gray-300">{nextDeadline?.date || 'Add one in Life OS'}</div>
+        </div>
+      </div>
+
+      <div className="frosted-card rounded-2xl p-6 flex items-center justify-between gap-4 flex-wrap">
+        <div>
+          <h2 className="text-xl font-bold text-zhust-accent">Life OS is available inside ZHUST</h2>
+          <p className="text-sm text-gray-400">Open the detailed module page for finances, habits, skills, and live deadlines.</p>
+        </div>
+        <Link
+          to="/life-os"
+          className="rounded-xl bg-zhust-secondary px-5 py-2.5 font-semibold text-white transition hover:bg-blue-700"
+        >
+          Open Life OS
+        </Link>
       </div>
 
       {/* Recent Activity */}

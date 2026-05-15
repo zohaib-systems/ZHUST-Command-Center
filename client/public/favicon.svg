@@ -1,0 +1,17 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="zhustBg" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F172A" />
+      <stop offset="1" stop-color="#1E3A8A" />
+    </linearGradient>
+    <linearGradient id="zhustRing" x1="16" y1="16" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3B82F6" />
+      <stop offset="1" stop-color="#FBBF24" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#zhustBg)" />
+  <circle cx="32" cy="32" r="20" stroke="url(#zhustRing)" stroke-width="4" />
+  <path d="M21 23H43L27 41H43" stroke="#FBBF24" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+  <circle cx="23" cy="19" r="2.5" fill="#FBBF24" />
+  <circle cx="41" cy="19" r="2.5" fill="#3B82F6" />
+</svg>

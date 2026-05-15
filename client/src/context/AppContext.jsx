@@ -10,6 +10,24 @@ export const AppProvider = ({ children }) => {
 
   const API_BASE = 'http://localhost:5000/api';
 
+  const defaultPersonalOS = {
+    plan: {
+      long: { text: '', date: '', purpose: '' },
+      mid: { text: '', date: '', purpose: '' },
+      short: { text: '', date: '', purpose: '' }
+    },
+    finances: {
+      income: 0,
+      expenses: 0,
+      assets: 0,
+      debts: 0,
+      entries: []
+    },
+    habits: [],
+    skills: [],
+    deadlines: []
+  };
+
   // Fetch all data on mount
   useEffect(() => {
     const fetchData = async () => {
@@ -123,6 +141,24 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  const savePersonalOS = async (personalOS) => {
+    try {
+      const response = await axios.post(`${API_BASE}/personal-os`, {
+        personal_os: personalOS || defaultPersonalOS
+      });
+
+      setData(prev => ({
+        ...(prev ?? {}),
+        personal_os: response.data.data
+      }));
+
+      return true;
+    } catch (err) {
+      console.error('Failed to save personal OS:', err);
+      return false;
+    }
+  };
+
   // Generate snapshot for PDF export
   const generateSnapshot = async () => {
     try {
@@ -147,6 +183,7 @@ export const AppProvider = ({ children }) => {
         removeNote,
         addPrompt,
         removePrompt,
+        savePersonalOS,
         generateSnapshot
       }}
     >
